@@ -90,12 +90,17 @@ module Stackup
       Stackup(aws_config)
     end
 
+
+    DEFAULT_RETRY_BASE_DELAY = 2
+
     def base_aws_config
       {
         :log_level => :debug,
         :logger => logger,
         :region => region,
-        :retry_limit => retry_limit
+        :retry_limit => retry_limit,
+        :retry_jitter => :full,
+        :retry_base_delay => DEFAULT_RETRY_BASE_DELAY
       }.reject { |_k, v| v.nil? }
     end
 
